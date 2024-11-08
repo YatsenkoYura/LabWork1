@@ -1,3 +1,7 @@
+//Yuriy Yatsenko 135624@student.spbu.ru
+//hello world project
+
+
 #include "ImageOperations.h"
 #include <cmath>
 #include <cstring>

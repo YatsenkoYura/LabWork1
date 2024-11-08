@@ -1,3 +1,7 @@
+//Yuriy Yatsenko 135624@student.spbu.ru
+//hello world project
+
+
 #ifndef IMAGEOPERATIONS_H
 #define IMAGEOPERATIONS_H
 #include "ImageData.h"

@@ -1,5 +1,7 @@
 #ifndef IMAGEDATA_H
 #define IMAGEDATA_H
+//Yuriy Yatsenko 135624@student.spbu.ru
+//hello world project
 
 #include <cstdint>
 
