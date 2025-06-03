@@ -1,5 +1,6 @@
 CXX = g++
 CXXFLAGS = -Werror -Wpedantic -Wall -pthread
+DOXYFILE = Doxyfile
 
 TARGET = lab1
 SRCS = main.cpp ImageData.cpp ImageOperations.cpp
@@ -18,4 +19,8 @@ $(TARGET): $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(TARGET)
+clean-docs:
+	rm -rf docs
+docs:
+	doxygen $(DOXYFILE)
 

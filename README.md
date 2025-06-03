@@ -10,5 +10,9 @@ st135624@stdudent.spbu.ru
 а 3 фильтр Гауса
 # Сборка
 make
+# Документация
+`make docs`
+# Удаление документации
+`make clean-docs`
 # Запуск
 ./lab1
