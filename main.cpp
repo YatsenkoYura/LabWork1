@@ -5,45 +5,53 @@
 #include "ImageOperations.h"
 #include <iostream>
 #include <cstring>
+#include <thread>
 int main() {
     ImageData originalImage;
-
     if (!originalImage.loadFromFile("input.bmp")) {
         return 1;
     }
 
-    ImageData cwImage = ImageOperations::rotateClockwise(originalImage);
-    if (!cwImage.writeToFile("output1.bmp")) {
-        std::cerr << "Ошибка при сохранении output1.bmp\n";
-    }
-    cwImage.freeMemory();
+    std::thread t1([&originalImage]() {
+        ImageData cw = ImageOperations::rotateClockwise(originalImage);
+        if (!cw.writeToFile("output1.bmp")) {
+            std::cerr << "Ошибка при сохранении output1.bmp\n";
+        }
+        cw.freeMemory();
+    });
 
-    ImageData ccwImage = ImageOperations::rotateCounterClockwise(originalImage);
-    if (!ccwImage.writeToFile("output2.bmp")) {
-        std::cerr << "Ошибка при сохранении output2.bmp\n";
-    }
-    ccwImage.freeMemory();
+    std::thread t2([&originalImage]() {
+        ImageData ccw = ImageOperations::rotateCounterClockwise(originalImage);
+        if (!ccw.writeToFile("output2.bmp")) {
+            std::cerr << "Ошибка при сохранении output2.bmp\n";
+        }
+        ccw.freeMemory();
+    });
 
-    ImageData blurredImage;
-    blurredImage = originalImage;
+    std::thread t3([&originalImage]() {
+        ImageData blurred;
+        blurred = originalImage;
 
-    unsigned int width = blurredImage.infoHdr.width;
+        unsigned int w = originalImage.infoHdr.width;
+        unsigned int h = std::abs(originalImage.infoHdr.height);
+        blurred.pixels = new Pixel*[h];
+        for (unsigned int i = 0; i < h; ++i) {
+            blurred.pixels[i] = new Pixel[w];
+            std::memcpy(blurred.pixels[i], originalImage.pixels[i], w * sizeof(Pixel));
+        }
 
-    unsigned int height = std::abs(blurredImage.infoHdr.height);
-    blurredImage.pixels = new Pixel*[height];
-    for (unsigned int i = 0; i < height; ++i) {
-        blurredImage.pixels[i] = new Pixel[width];
-        std::memcpy(blurredImage.pixels[i], originalImage.pixels[i], width * sizeof(Pixel));
-    }
+        ImageOperations::applyGaussianBlur(blurred);
 
-    ImageOperations::applyGaussianBlur(blurredImage);
+        if (!blurred.writeToFile("output3.bmp")) {
+            std::cerr << "Ошибка при сохранении output3.bmp\n";
+        }
+        blurred.freeMemory();
+    });
 
+    t1.join();
+    t2.join();
+    t3.join();
 
-    if (!blurredImage.writeToFile("output3.bmp")) {
-        std::cerr << "Ошибка при сохранении output3.bmp\n";
-    }
-    blurredImage.freeMemory();
     originalImage.freeMemory();
-
     return 0;
 }

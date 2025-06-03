@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Werror -Wpedantic -Wall
+CXXFLAGS = -Werror -Wpedantic -Wall -pthread
 
 TARGET = lab1
 SRCS = main.cpp ImageData.cpp ImageOperations.cpp
