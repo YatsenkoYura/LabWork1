@@ -1,8 +1,8 @@
 //Yuriy Yatsenko 135624@student.spbu.ru
 //hello world project
 
-#include "ImageData.h"
-#include "ImageOperations.h"
+#include "include/ImageData.h"
+#include "include/ImageOperations.h"
 #include <iostream>
 #include <cstring>
 #include <thread>
