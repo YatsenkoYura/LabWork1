@@ -1,0 +1,22 @@
+name: C/C++ CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dependencies
+        run: sudo apt-get install -y build-essential doxygen
+      - name: make
+        run: make
+      - name: Chmod
+        run: chmod +x ./lab1
+      - name: Prepare
+        run: cp test_file/input.bmp .
+      - name: Run image processor
+        run: ./lab1
+      - name: Check outputs
+        run: |
+          ls -l output1.bmp output2.bmp output3.bmp
