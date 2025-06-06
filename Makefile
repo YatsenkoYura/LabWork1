@@ -3,7 +3,7 @@ CXXFLAGS = -Werror -Wpedantic -Wall -pthread
 DOXYFILE = Doxyfile
 
 TARGET = lab1
-SRCS = main.cpp include/ImageData.cpp include/ImageOperations.cpp
+SRCS = main.cpp src/ImageData.cpp src/ImageOperations.cpp
 
 TEST_TARGET:= gtest
 TEST_SRCS  := tests/test.cpp
@@ -19,7 +19,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-$(TEST_TARGET): $(TEST_OBJS) include/ImageData.o include/ImageOperations.o
+$(TEST_TARGET): $(TEST_OBJS) src/ImageData.o src/ImageOperations.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(GTEST_LIBS)
 
 %.o: %.cpp
