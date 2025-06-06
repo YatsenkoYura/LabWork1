@@ -8,15 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Dependencies
-        run: sudo apt-get install -y build-essential doxygen
+        run: sudo apt-get install -y build-essential doxygen libgtest-dev
       - name: make
-        run: make
+        run: make gtest
       - name: Chmod
-        run: chmod +x ./lab1
-      - name: Prepare
-        run: cp test_file/input.bmp .
+        run: chmod +x ./gtest
       - name: Run image processor
-        run: ./lab1
-      - name: Check outputs
-        run: |
-          ls -l output1.bmp output2.bmp output3.bmp
+        run: ./gtest
