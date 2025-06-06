@@ -2,7 +2,7 @@
 //hello world project
 
 
-#include "include/ImageOperations.h"
+#include "../include/ImageOperations.h"
 #include <cmath>
 #include <cstring>
 
