@@ -3,7 +3,7 @@ CXXFLAGS = -Werror -Wpedantic -Wall -pthread
 DOXYFILE = Doxyfile
 
 TARGET = lab1
-SRCS = main.cpp ImageData.cpp ImageOperations.cpp
+SRCS = main.cpp include/ImageData.cpp include/ImageOperations.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
